@@ -18,7 +18,7 @@
 const helper = {
   command: ['hello'],
   description: 'Sends a hello message',
-  operate: async (ctx, { bot, text, prefix, command) => {
+  operate: async (ctx, { bot, text, prefix, command }) => {
     await ctx.reply('Hello, World!');
   },
   noPrefix: false,
