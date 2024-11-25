@@ -8,10 +8,13 @@ import Function from '../lib/function.js';
 // Global Functions
 global.Func = Function;
 
-if (!bot) {
+// Validasi BOT_TOKEN dari environment variables
+if (!process.env.BOT_TOKEN) {
   console.error(chalk.red.bold('Error: BOT_TOKEN not found in environment variables.'));
   process.exit(1);
 }
+
+// Inisialisasi bot
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 (async () => {
@@ -22,14 +25,15 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
     console.log(chalk.blue('Setting up handlers...'));
     handler(bot);
 
-    // Launch the bot
-console.log(chalk.green.bold('Bot started successfully!'));
+    // Meluncurkan bot
+    console.log(chalk.green.bold('Bot started successfully!'));
     await bot.launch();
 
   } catch (error) {
     console.error(chalk.red.bold('Error starting bot:'), error);
   }
 
+  // Menangani sinyal untuk menghentikan bot dengan benar
   process.once('SIGINT', () => bot.stop('SIGINT'));
   process.once('SIGTERM', () => bot.stop('SIGTERM'));
 })();
